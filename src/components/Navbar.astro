@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import aboutData from '../content/settings/about.json';
 import artCurationData from '../content/settings/art-curation.json';
 import projectsData from '../content/settings/projects.json';
@@ -7,6 +8,7 @@ import teamData from '../content/settings/team.json';
 import resourcesData from '../content/settings/resources.json';
 import blogData from '../content/settings/blog.json';
 import contactData from '../content/settings/contact.json';
+import { solutionSlug } from '../lib/solutionSlug';
 
 export interface Props {
   // Pages that don't open on a dark hero (e.g. About) need the navbar to be
@@ -17,14 +19,15 @@ export interface Props {
 
 const { solid = false } = Astro.props;
 
-// Rendered around the Team link, which gets an extra hover dropdown to the rep locator.
-// Filtered by each section's CMS "published" toggle, so an unpublished page's
-// link disappears from the nav along with the page itself.
-const navLinksBeforeTeam = [
+// Rendered around the Bespoke solutions and Team links, which each get an extra
+// hover dropdown. Filtered by each section's CMS "published" toggle, so an
+// unpublished page's link disappears from the nav along with the page itself.
+const navLinksBeforeSolutions = [
   { label: 'Home',              href: '/#hero',         published: true },
   { label: 'About',             href: '/#about',        published: aboutData.published },
   { label: 'Art Curation',      href: '/#art-curation', published: artCurationData.published },
-  { label: 'Bespoke solutions', href: '/#solutions',    published: true },
+].filter((link) => link.published);
+const navLinksAfterSolutions = [
   { label: 'Projects',          href: '/projects',      published: projectsData.published },
   { label: 'Artists',           href: '/artists',       published: artistsData.published },
 ].filter((link) => link.published);
@@ -36,6 +39,14 @@ const navLinksAfterTeam = [
 const showTeam = teamData.published;
 const teamLink = { label: 'Team', href: '/#team' };
 const findRepLink = { label: 'Find your rep', href: '/team#reps' };
+
+// Bespoke solutions: like Team, gets an extra hover dropdown — here, straight
+// links to each solution's own page, alphabetized.
+const solutionsLink = { label: 'Bespoke solutions', href: '/#solutions' };
+const allSolutions = await getCollection('solutions');
+const solutionLinks = allSolutions
+  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+  .map((sol) => ({ label: sol.data.title, href: `/solutions/${solutionSlug(sol.id)}` }));
 ---
 
 <header
@@ -50,7 +61,44 @@ const findRepLink = { label: 'Find your rep', href: '/team#reps' };
 
   <!-- Desktop nav -->
   <nav class="hidden xl:flex items-center gap-8">
-    {navLinksBeforeTeam.map((link) => (
+    {navLinksBeforeSolutions.map((link) => (
+      <a
+        href={link.href}
+        class="font-heading text-lg text-cream/90 hover:text-cream tracking-wide transition-colors duration-200 relative group"
+      >
+        {link.label}
+        <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-gold group-hover:w-full transition-all duration-300" />
+      </a>
+    ))}
+
+    <!-- Bespoke solutions: hover reveals a dropdown straight to each solution's page -->
+    <div class="relative group/solutions">
+      <a
+        href={solutionsLink.href}
+        class="font-heading text-lg text-cream/90 hover:text-cream tracking-wide transition-colors duration-200 relative group"
+      >
+        {solutionsLink.label}
+        <span class="absolute -bottom-0.5 left-0 h-px w-0 bg-gold group-hover:w-full transition-all duration-300" />
+      </a>
+      <div
+        class="absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 invisible translate-y-1
+               group-hover/solutions:opacity-100 group-hover/solutions:visible group-hover/solutions:translate-y-0
+               transition-all duration-200"
+      >
+        <div class="bg-teal/95 backdrop-blur-lg shadow-md py-2">
+          {solutionLinks.map((sol) => (
+            <a
+              href={sol.href}
+              class="block whitespace-nowrap px-5 py-2.5 font-heading text-base text-cream/90 hover:text-cream hover:bg-cream/10 transition-colors duration-200"
+            >
+              {sol.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {navLinksAfterSolutions.map((link) => (
       <a
         href={link.href}
         class="font-heading text-lg text-cream/90 hover:text-cream tracking-wide transition-colors duration-200 relative group"
@@ -115,7 +163,33 @@ const findRepLink = { label: 'Find your rep', href: '/team#reps' };
   class="fixed inset-0 z-40 bg-teal/90 backdrop-blur-lg flex flex-col items-center justify-center gap-8
          translate-x-full transition-transform duration-500 xl:hidden overflow-y-auto py-16"
 >
-  {navLinksBeforeTeam.map((link) => (
+  {navLinksBeforeSolutions.map((link) => (
+    <a
+      href={link.href}
+      class="mobile-link font-heading text-[2.156rem] text-cream/90 hover:text-gold transition-colors duration-200"
+    >
+      {link.label}
+    </a>
+  ))}
+
+  <a
+    href={solutionsLink.href}
+    class="mobile-link font-heading text-[2.156rem] text-cream/90 hover:text-gold transition-colors duration-200"
+  >
+    {solutionsLink.label}
+  </a>
+  <div class="-mt-6 flex flex-col items-center gap-3">
+    {solutionLinks.map((sol) => (
+      <a
+        href={sol.href}
+        class="mobile-link font-heading text-lg tracking-widest2 uppercase text-cream/70 hover:text-gold transition-colors duration-200"
+      >
+        {sol.label}
+      </a>
+    ))}
+  </div>
+
+  {navLinksAfterSolutions.map((link) => (
     <a
       href={link.href}
       class="mobile-link font-heading text-[2.156rem] text-cream/90 hover:text-gold transition-colors duration-200"
