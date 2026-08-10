@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import footerData from '../content/settings/footer.json';
+import resourcesData from '../content/settings/resources.json';
+import blogData from '../content/settings/blog.json';
 import { netlifyImage } from '../lib/netlifyImage';
 import { solutionSlug } from '../lib/solutionSlug';
 
@@ -18,7 +20,7 @@ const taglineParts = footerData.tagline.split(' · ');
 const backgroundImage = netlifyImage(footerData.background_image, { width: 1600 });
 
 const allSolutions = await getCollection('solutions');
-const solutions = allSolutions.sort((a, b) => a.data.order - b.data.order);
+const solutions = allSolutions.sort((a, b) => a.data.title.localeCompare(b.data.title));
 
 // Mirrors the main nav so the footer sitemap always matches what's in the header.
 const companyLinks = [
@@ -28,12 +30,12 @@ const companyLinks = [
   { label: 'Contact', href: '/#contact' },
 ];
 const exploreLinks = [
-  { label: 'Art Curation',      href: '/#art-curation' },
-  { label: 'Bespoke Solutions', href: '/#solutions' },
-  { label: 'Find your rep',     href: '/team#reps' },
-  { label: 'Resources',         href: '/resources' },
-  { label: 'Blog',              href: '/blog' },
-];
+  { label: 'Art Curation',      href: '/#art-curation',  published: true },
+  { label: 'Bespoke Solutions', href: '/#solutions',      published: true },
+  { label: 'Find your rep',     href: '/team#reps',       published: true },
+  { label: 'Resources',         href: '/resources',       published: resourcesData.published },
+  { label: 'Blog',              href: '/blog',            published: blogData.published },
+].filter((link) => link.published);
 
 const currentYear = new Date().getFullYear();
 ---

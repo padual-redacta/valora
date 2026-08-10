@@ -5,6 +5,7 @@ import projectsData from '../content/settings/projects.json';
 import artistsData from '../content/settings/artists.json';
 import teamData from '../content/settings/team.json';
 import resourcesData from '../content/settings/resources.json';
+import blogData from '../content/settings/blog.json';
 import contactData from '../content/settings/contact.json';
 
 export interface Props {
@@ -29,7 +30,7 @@ const navLinksBeforeTeam = [
 ].filter((link) => link.published);
 const navLinksAfterTeam = [
   { label: 'Resources', href: '/resources',  published: resourcesData.published },
-  { label: 'Blog',       href: '/blog',       published: true },
+  { label: 'Blog',       href: '/blog',       published: blogData.published },
   { label: 'Contact',    href: '/#contact',   published: contactData.published },
 ].filter((link) => link.published);
 const showTeam = teamData.published;
@@ -48,7 +49,7 @@ const findRepLink = { label: 'Find your rep', href: '/team#reps' };
   </a>
 
   <!-- Desktop nav -->
-  <nav class="hidden md:flex items-center gap-8">
+  <nav class="hidden xl:flex items-center gap-8">
     {navLinksBeforeTeam.map((link) => (
       <a
         href={link.href}
@@ -99,7 +100,7 @@ const findRepLink = { label: 'Find your rep', href: '/team#reps' };
   <!-- Mobile hamburger -->
   <button
     id="menu-toggle"
-    class="md:hidden flex flex-col gap-1.5 p-1"
+    class="xl:hidden flex flex-col gap-1.5 p-1"
     aria-label="Toggle menu"
   >
     <span class="w-6 h-px bg-cream block transition-all duration-300" />
@@ -112,7 +113,7 @@ const findRepLink = { label: 'Find your rep', href: '/team#reps' };
 <div
   id="mobile-menu"
   class="fixed inset-0 z-40 bg-teal/90 backdrop-blur-lg flex flex-col items-center justify-center gap-8
-         translate-x-full transition-transform duration-500 md:hidden overflow-y-auto py-16"
+         translate-x-full transition-transform duration-500 xl:hidden overflow-y-auto py-16"
 >
   {navLinksBeforeTeam.map((link) => (
     <a

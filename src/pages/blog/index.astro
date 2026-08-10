@@ -2,6 +2,11 @@
 import { getCollection } from 'astro:content';
 import SolutionLayout from '../../layouts/SolutionLayout.astro';
 import { netlifyImage } from '../../lib/netlifyImage';
+import blogData from '../../content/settings/blog.json';
+
+if (!blogData.published) {
+  return Astro.redirect('/');
+}
 
 const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());

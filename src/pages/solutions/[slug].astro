@@ -6,13 +6,13 @@ import { solutionSlug } from '../../lib/solutionSlug';
 
 export async function getStaticPaths() {
   const solutions = await getCollection('solutions');
-  const sorted = solutions.sort((a, b) => a.data.order - b.data.order);
+  const sorted = solutions.sort((a, b) => a.data.title.localeCompare(b.data.title));
   return sorted.map((entry) => ({
     params: { slug: solutionSlug(entry.id) },
     props: {
       entry,
-      // Lightweight list for the "Other Bespoke Solutions" nav — just what's
-      // needed to render links, not the full gallery data for every solution.
+      // Lightweight list for the "Other Bespoke Solutions" dropdown — just what's
+      // needed to render options, not the full gallery data for every solution.
       allSolutions: sorted.map((s) => ({ id: s.id, title: s.data.title })),
     },
   }));
@@ -202,35 +202,178 @@ const heroTrackSlides = heroSlides.length > 1 ? [...heroSlides, heroSlides[0]] :
     </div>
   </section>
 
-  <!-- Other Bespoke Solutions — jump straight to any of the other 5 -->
-  <nav class="bg-white border-t border-dark/10 py-8 px-6 md:px-16" aria-label="Other Bespoke Solutions">
+  <!-- Other Bespoke Solutions — jump straight to any of the other solutions -->
+  <nav class="bg-white border-t border-dark/10 py-10 md:py-12 px-6 md:px-16" aria-label="Other Bespoke Solutions">
     <div class="max-w-7xl mx-auto">
       <p class="font-body text-[11px] tracking-widest2 text-teal uppercase mb-4">
         Other Bespoke Solutions
       </p>
-      <div class="flex flex-wrap gap-3">
-        {allSolutions.map((sol) => {
-          const slug = solutionSlug(sol.id);
-          const isCurrent = slug === currentSlug;
-          return isCurrent ? (
-            <span
-              aria-current="page"
-              class="font-body text-xs tracking-widest2 uppercase px-5 py-2.5 bg-dark text-cream border border-dark"
-            >
-              {sol.title}
-            </span>
-          ) : (
-            <a
-              href={`/solutions/${slug}`}
-              class="font-body text-xs tracking-widest2 uppercase px-5 py-2.5 border border-dark/25 text-dark transition-colors duration-300 hover:border-teal hover:text-teal"
-            >
-              {sol.title}
-            </a>
-          );
-        })}
+
+      <!--
+        Custom combobox instead of a native <select>, to match the styling and
+        interaction of the region picker on /team — a native select's plain
+        system chrome reads flat against the rest of this page's editorial type.
+      -->
+      <div class="relative max-w-md" id="solutions-picker">
+        <button
+          type="button"
+          id="solutions-trigger"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-labelledby="solutions-trigger"
+          class="w-full flex items-center justify-between gap-3 bg-transparent border-b border-dark/25 pb-3
+                 font-heading text-xl md:text-2xl font-light text-dark text-left
+                 focus:outline-none focus:border-gold transition-colors duration-300"
+        >
+          <span id="solutions-trigger-value">{title}</span>
+          <span aria-hidden="true" id="solutions-trigger-caret" class="text-gold text-xs shrink-0 transition-transform duration-300">▾</span>
+        </button>
+
+        <ul
+          id="solutions-listbox"
+          role="listbox"
+          aria-labelledby="solutions-trigger"
+          tabindex="-1"
+          class="hidden absolute inset-x-0 top-full z-30 mt-3 max-h-72 overflow-y-auto
+                 border border-dark/10 bg-white shadow-xl shadow-dark/10 py-2 text-left"
+        >
+          {allSolutions.map((sol) => {
+            const slug = solutionSlug(sol.id);
+            const isCurrent = slug === currentSlug;
+            return (
+              <li
+                role="option"
+                id={`solutions-option-${slug}`}
+                data-href={`/solutions/${slug}`}
+                aria-selected={isCurrent ? 'true' : undefined}
+                class={`px-4 py-2.5 font-body text-sm cursor-pointer transition-colors duration-150 hover:bg-dark/5 hover:text-teal ${isCurrent ? 'text-teal' : 'text-dark/75'}`}
+              >
+                {sol.title}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   </nav>
+
+  <script>
+    const picker  = document.getElementById('solutions-picker');
+    const trigger = document.getElementById('solutions-trigger') as HTMLButtonElement | null;
+    const triggerValue = document.getElementById('solutions-trigger-value');
+    const triggerCaret = document.getElementById('solutions-trigger-caret');
+    const listbox = document.getElementById('solutions-listbox');
+    const options = listbox ? Array.from(listbox.querySelectorAll<HTMLLIElement>('[role="option"]')) : [];
+
+    let activeIndex = -1;
+    let typeahead = '';
+    let typeaheadTimer: ReturnType<typeof setTimeout> | undefined;
+
+    function setActiveIndex(index: number) {
+      if (options.length === 0 || !listbox) return;
+      activeIndex = (index + options.length) % options.length;
+      const active = options[activeIndex];
+      options.forEach((o) => o.classList.remove('bg-dark/5', 'text-teal'));
+      active.classList.add('bg-dark/5', 'text-teal');
+      listbox.setAttribute('aria-activedescendant', active.id);
+      active.scrollIntoView({ block: 'nearest' });
+    }
+
+    function openListbox() {
+      if (!listbox || !trigger) return;
+      listbox.classList.remove('hidden');
+      trigger.setAttribute('aria-expanded', 'true');
+      triggerCaret?.classList.add('rotate-180');
+      const selected = options.findIndex((o) => o.getAttribute('aria-selected') === 'true');
+      setActiveIndex(selected >= 0 ? selected : 0);
+      listbox.focus();
+    }
+
+    function closeListbox(focusTrigger = false) {
+      if (!listbox || !trigger) return;
+      listbox.classList.add('hidden');
+      trigger.setAttribute('aria-expanded', 'false');
+      triggerCaret?.classList.remove('rotate-180');
+      listbox.removeAttribute('aria-activedescendant');
+      activeIndex = -1;
+      if (focusTrigger) trigger.focus();
+    }
+
+    function isOpen() {
+      return !listbox?.classList.contains('hidden');
+    }
+
+    function choose(option: HTMLLIElement | undefined) {
+      if (!option) return;
+      closeListbox(true);
+      const href = option.dataset.href;
+      // Already on this solution — just close instead of reloading the page.
+      if (!href || option.getAttribute('aria-selected') === 'true') return;
+      window.location.href = href;
+    }
+
+    trigger?.addEventListener('click', () => {
+      if (isOpen()) closeListbox();
+      else openListbox();
+    });
+
+    trigger?.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openListbox();
+      }
+    });
+
+    listbox?.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setActiveIndex(activeIndex + 1);
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setActiveIndex(activeIndex - 1);
+          break;
+        case 'Home':
+          e.preventDefault();
+          setActiveIndex(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          setActiveIndex(options.length - 1);
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          choose(options[activeIndex]);
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeListbox(true);
+          break;
+        case 'Tab':
+          closeListbox();
+          break;
+        default:
+          if (e.key.length === 1 && /[a-z0-9]/i.test(e.key)) {
+            typeahead += e.key.toLowerCase();
+            clearTimeout(typeaheadTimer);
+            typeaheadTimer = setTimeout(() => { typeahead = ''; }, 600);
+            const match = options.findIndex((o) => o.textContent?.trim().toLowerCase().startsWith(typeahead));
+            if (match >= 0) setActiveIndex(match);
+          }
+      }
+    });
+
+    options.forEach((option, i) => {
+      option.addEventListener('click', () => choose(option));
+      option.addEventListener('mousemove', () => setActiveIndex(i));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (picker && !picker.contains(e.target as Node)) closeListbox();
+    });
+  </script>
 
   <!-- Closing banner -->
   <section class="bg-white py-16 md:py-20 px-6 md:px-16">

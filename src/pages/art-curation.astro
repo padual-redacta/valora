@@ -62,6 +62,20 @@ const captions = artCurationData.video_captions;
           </p>
         ))}
       </div>
+
+      {artCurationData.package_pdf && (
+        <a
+          href={artCurationData.package_pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="reveal delay-200 inline-flex items-center gap-3 mt-10 font-body text-xs tracking-widest2 uppercase text-dark border border-dark/25 px-6 py-3.5 hover:border-teal hover:text-teal transition-colors duration-300"
+        >
+          More Info
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" class="flex-none">
+            <path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      )}
     </div>
   </section>
 

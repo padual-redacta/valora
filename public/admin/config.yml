@@ -334,6 +334,7 @@ collections:
             label: "Art Curation Page — Body Paragraphs"
             widget: list
             field: { name: text, label: Paragraph, widget: text }
+          - { name: package_pdf, label: "Art Curation Page — Sample Art Package PDF", widget: file, required: false, hint: "Optional. Shown as a \"More Info\" button at the bottom of the page, opening the PDF in a new tab. Leave empty to hide the button." }
 
       - name: projects
         label: Projects Section
@@ -390,6 +391,12 @@ collections:
           - { name: published, label: "Publish the /resources page?", widget: boolean, default: true }
           - { name: page_heading, label: "Page Heading", widget: string }
           - { name: page_description, label: "Page Description", widget: text }
+
+      - name: blog
+        label: Blog Page
+        file: src/content/settings/blog.json
+        fields:
+          - { name: published, label: "Publish the /blog page?", widget: boolean, default: true }
 
       - name: join-team
         label: "Artist Submissions Section"

@@ -4,7 +4,7 @@ import { netlifyImage } from '../lib/netlifyImage';
 import { solutionSlug } from '../lib/solutionSlug';
 
 const allSolutions = await getCollection('solutions');
-const solutions = allSolutions.sort((a, b) => a.data.order - b.data.order);
+const solutions = allSolutions.sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <section
