@@ -1,45 +1,50 @@
 {
-  "published": true,
-  "eyebrow": "About Valora — Philosophy & Heritage",
-  "heading_before_em": "Every space has a story. We provide the ",
   "heading_em": "art",
-  "heading_after_em": " to tell it.",
+  "image_alt": "Luxurious interior with circular mirror and curved sofa",
   "paragraphs": [
     "Valora is a creative partner for environments that demand a distinct visual identity.",
     "Our process involves identifying the specific visual language a site requires and executing it with the same precision with which it was conceived.",
     "This new chapter is backed by forty years of domestic excellence."
   ],
-  "image": "/images/home-about.png",
-  "image_alt": "Luxurious interior with circular mirror and curved sofa",
-
-  "page_eyebrow": "About Us",
-  "page_heading": "Where your vision finds Valora",
-
+  "section1_image": "/images/about-section-1.png",
+  "heading_after_em": " to tell it.",
+  "section2_image": "/images/chatgpt-image-aug-13-2026-02_22_46-am.png",
+  "eyebrow": "About Valora — Philosophy & Heritage",
+  "section3_image": "/images/home-team.png",
+  "heading_before_em": "Every space has a story. We provide the ",
+  "published": true,
+  "section2_items": [
+    {
+      "label": "Dedicated In-House Artisans",
+      "text": "Master craftspeople working exclusively to interpret your exact specifications at every scale."
+    },
+    {
+      "label": "End-to-End Domestic Craft",
+      "text": "Crafted entirely in the United States. By holding total control from the first sketch to final installation, we ensure no nuance is lost between the studio floor and the property wall."
+    },
+    {
+      "label": "Deliberate Materiality",
+      "text": "Focused execution in copper, fiber, acoustic surfaces, and reflected light. From custom architectural wallcoverings to integrated lighting and three-dimensional art commissions, we deliver the exact physical presence your space demands."
+    }
+  ],
   "section1_heading": "The Origin & Role",
+  "section2_heading": "What to Expect: Physical Precision. Deliberate Materiality",
+  "section3_heading": "Leadership Behind the Brand",
+  "page_heading": "Where your vision finds Valora",
+  "section1_image_alt": "Valora interior showcasing bespoke art and materiality",
+  "section2_image_alt": "Textured geometric wallcovering behind a wooden sideboard",
+  "section3_cta_label": "Meet the Team",
+  "section3_image_alt": "Valora leadership collaborating around a design table",
+  "section3_paragraphs": [
+    "Valora is led by seasoned industry experts who know luxury hospitality from the inside: its rhythm, its standards, and the weight of every detail.",
+    "Spearheaded by leadership with over thirty years in high-end hospitality, our team combines deep category expertise with an unyielding respect for creative intent. We understand your goals, anticipate your challenges, and share your commitment to bringing exceptional design to life."
+  ],
   "section1_paragraphs": [
     "Some projects demand more than execution. They demand a partner who speaks the language of space and holds the creativity and technical craft to bring it to life. Valora was created to be that partner.",
     "A new brand, but one that didn't come out of nowhere. Built to serve full-service 5-star properties and ambitious luxury hospitality environments, Valora represents a new chapter backed by four decades of American manufacturing heritage. Behind every project we undertake are the solid foundations built by Artline Group: precision-driven processes, operational scale, and a deep understanding of craft from the inside out.",
     "Artline gives us the ground to stand on; Valora is everything beautifully built above it: a distinct identity and a dialogue crafted specifically for the luxury realm. We bring the discipline and capability of an established group, focused entirely on interpreting and elevating your bespoke art decisions."
   ],
-  "section1_image": "/images/about-section-1.png",
-  "section1_image_alt": "Valora interior showcasing bespoke art and materiality",
-
-  "section2_heading": "What to Expect: Physical Precision. Deliberate Materiality",
+  "page_eyebrow": "About Us",
   "section2_intro": "Working with Valora is an ongoing dialogue of technical precision. You define the vision, we engineer the response.",
-  "section2_items": [
-    { "label": "Dedicated In-House Artisans", "text": "Master craftspeople working exclusively to interpret your exact specifications at every scale." },
-    { "label": "End-to-End Domestic Craft", "text": "Crafted entirely in the United States. By holding total control from the first sketch to final installation, we ensure no nuance is lost between the studio floor and the property wall." },
-    { "label": "Deliberate Materiality", "text": "Focused execution in copper, fiber, acoustic surfaces, and reflected light. From custom architectural wallcoverings to integrated lighting and three-dimensional art commissions, we deliver the exact physical presence your space demands." }
-  ],
-  "section2_image": "/images/about-section-2.png",
-  "section2_image_alt": "Textured geometric wallcovering behind a wooden sideboard",
-
-  "section3_heading": "Leadership Behind the Brand",
-  "section3_paragraphs": [
-    "Valora is led by seasoned industry experts who know luxury hospitality from the inside: its rhythm, its standards, and the weight of every detail.",
-    "Spearheaded by leadership with over thirty years in high-end hospitality, our team combines deep category expertise with an unyielding respect for creative intent. We understand your goals, anticipate your challenges, and share your commitment to bringing exceptional design to life."
-  ],
-  "section3_image": "/images/home-team.png",
-  "section3_image_alt": "Valora leadership collaborating around a design table",
-  "section3_cta_label": "Meet the Team"
+  "image": "/images/home-about.png"
 }
