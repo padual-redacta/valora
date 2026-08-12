@@ -8,6 +8,20 @@ if (!aboutData.published) {
 }
 
 const section2Intro = aboutData.section2_intro;
+
+// Wherever "Artline Group" is mentioned in the section 1 copy, link it out to
+// the parent company's site — the CMS field stays plain text, this is a
+// presentation-layer rule, not editable content.
+function linkArtlineGroup(text: string) {
+  const escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return escaped.replace(
+    /Artline Group/g,
+    '<a href="https://artlinegroup.com/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-teal transition-colors duration-200">Artline Group</a>'
+  );
+}
 ---
 
 <SolutionLayout title="About — Valora" description={aboutData.page_heading} navbarSolid={true}>
@@ -33,9 +47,7 @@ const section2Intro = aboutData.section2_intro;
         </h2>
         <div class="space-y-5 reveal delay-100">
           {aboutData.section1_paragraphs.map((para: string) => (
-            <p class="font-body text-dark/70 text-sm md:text-base leading-relaxed">
-              {para}
-            </p>
+            <p class="font-body text-dark/70 text-sm md:text-base leading-relaxed" set:html={linkArtlineGroup(para)} />
           ))}
         </div>
       </div>
