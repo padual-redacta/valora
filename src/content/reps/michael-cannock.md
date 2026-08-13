@@ -34,4 +34,6 @@ regions:
   - WA
   - WV
   - WY
+  - NY-N
+  - NY-S
 ---
