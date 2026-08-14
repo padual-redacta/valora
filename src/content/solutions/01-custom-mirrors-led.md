@@ -44,10 +44,6 @@ images:
   - src: /images/mirrors-printed-4.png
     alt: Custom printed mirror installation
     tag: Printed
-  - src: public/images/chatgpt-image-aug-14-2026-04_59_40-pm.png
-    alt: Custom printed mirror installation
-  - src: public/images/chatgpt-image-aug-14-2026-04_58_52-pm.png
-    alt: Custom printed mirror installation
 category_descriptions:
   - tag: Framed
     description: Custom profiles, finishes, and colors engineered to align perfectly
