@@ -1,6 +1,6 @@
 ---
 order: 1
-title: "Custom Mirrors & LED"
+title: Custom Mirrors & LED
 description: Mirrors are more than reflective surfaces; they are instruments of
   light and space. Crafted entirely in the United States, our bespoke mirror
   solutions seamlessly merge high-tier functionality with artistic intent,
@@ -44,10 +44,14 @@ images:
   - src: /images/mirrors-printed-4.png
     alt: Custom printed mirror installation
     tag: Printed
+  - src: /images/chatgpt-image-aug-14-2026-04_59_40-pm.png
+    alt: Custom printed mirror installation
+  - src: /images/chatgpt-image-aug-14-2026-04_58_52-pm.png
+    alt: Custom printed mirror installation
 category_descriptions:
   - tag: Framed
-    description: Custom profiles, finishes, and colors engineered to align
-      perfectly with the interior's material language.
+    description: Custom profiles, finishes, and colors engineered to align perfectly
+      with the interior's material language.
   - tag: LED
     description: Features 3000K warm white lighting for a clean, considered glow.
       Available in custom shapes and configurations with plug-in or hardwired
