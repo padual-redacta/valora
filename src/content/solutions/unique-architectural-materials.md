@@ -14,6 +14,12 @@ images:
   - src: /images/laser-cut-2.png
     alt: Custom laser cut architectural material installation
     tag: Laser-cut Art
+  - src: /images/laser-cut-3.jpg
+    alt: Custom laser cut architectural material installation
+    tag: Laser-cut Art   
+  - src: /images/laser-cut-4.jpg
+    alt: Custom laser cut architectural material installation
+    tag: Laser-cut Art  
   - src: /images/terraflex-1.png
     alt: Custom TerraFlex architectural material installation
     tag: TerraFlex by Valora
@@ -32,9 +38,16 @@ images:
   - src: /images/terraflex-6.png
     alt: Custom TerraFlex architectural material installation
     tag: TerraFlex by Valora
+  - src: /images/terraflex-8.png
+    alt: Custom TerraFlex architectural material installation
+    tag: TerraFlex by Valora
   - src: /images/terraflex-7.png
     alt: Custom TerraFlex architectural material installation
     tag: TerraFlex by Valora
+  - src: /images/terraflex-10.png
+    alt: Custom TerraFlex architectural material installation
+    tag: TerraFlex by Valora
+  
 category_descriptions:
   - tag: TerraFlex by Valora
     description: Crafted from patented Modified Clay Material, TerraFlex

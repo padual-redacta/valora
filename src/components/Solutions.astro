@@ -24,64 +24,64 @@ const solutions = allSolutions.sort((a, b) => a.data.title.localeCompare(b.data.
         const previewImages = sol.data.images.slice(0, 3);
         return (
           <article class={`reveal solution-card delay-${(i % 3) * 100 + 100}`}>
+            <a href={`/solutions/${solutionSlug(sol.id)}`} class="group block">
 
-            <!-- Mini slider (much smaller, first 3 images) -->
-            <div class="slider-wrap relative overflow-hidden aspect-square mb-4" data-total={previewImages.length}>
-              <div class="slider-track flex h-full transition-transform duration-500 ease-out will-change-transform"
-                   style={`width: ${previewImages.length * 100}%`}>
-                {previewImages.map((img) => (
-                  <div class="h-full flex-none overflow-hidden" style={`width: ${100 / previewImages.length}%`}>
-                    <img
-                      src={netlifyImage(img.src, { width: 500 })}
-                      alt={img.alt}
-                      class="solution-img w-full h-full object-cover transition-transform duration-700 ease-out"
-                      loading="lazy"
-                    />
-                  </div>
-                ))}
+              <!-- Mini slider (much smaller, first 3 images) -->
+              <div class="slider-wrap relative overflow-hidden aspect-square mb-4" data-total={previewImages.length}>
+                <div class="slider-track flex h-full transition-transform duration-500 ease-out will-change-transform"
+                     style={`width: ${previewImages.length * 100}%`}>
+                  {previewImages.map((img) => (
+                    <div class="h-full flex-none overflow-hidden" style={`width: ${100 / previewImages.length}%`}>
+                      <img
+                        src={netlifyImage(img.src, { width: 500 })}
+                        alt={img.alt}
+                        class="solution-img w-full h-full object-cover transition-transform duration-700 ease-out"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Prev arrow -->
+                <button
+                  type="button"
+                  class="slider-prev absolute left-2 top-1/2 -translate-y-1/2 z-10
+                         w-7 h-7 flex items-center justify-center
+                         bg-dark/50 hover:bg-dark/75 text-cream text-lg leading-none
+                         transition-colors duration-200
+                         disabled:opacity-25 disabled:pointer-events-none"
+                  aria-label="Previous image"
+                >
+                  ‹
+                </button>
+
+                <!-- Next arrow -->
+                <button
+                  type="button"
+                  class="slider-next absolute right-2 top-1/2 -translate-y-1/2 z-10
+                         w-7 h-7 flex items-center justify-center
+                         bg-dark/50 hover:bg-dark/75 text-cream text-lg leading-none
+                         transition-colors duration-200
+                         disabled:opacity-25 disabled:pointer-events-none"
+                  aria-label="Next image"
+                >
+                  ›
+                </button>
               </div>
 
-              <!-- Prev arrow -->
-              <button
-                type="button"
-                class="slider-prev absolute left-2 top-1/2 -translate-y-1/2 z-10
-                       w-7 h-7 flex items-center justify-center
-                       bg-dark/50 hover:bg-dark/75 text-cream text-lg leading-none
-                       transition-colors duration-200
-                       disabled:opacity-25 disabled:pointer-events-none"
-                aria-label="Previous image"
-              >
-                ‹
-              </button>
+              <!-- Title as button (links to the category page) -->
+              <div class="relative flex items-center justify-between gap-3 border border-dark/25 px-5 py-3.5 overflow-hidden transition-colors duration-300 group-hover:border-teal">
+                <span class="font-body text-xs tracking-widest2 uppercase text-dark transition-colors duration-300 group-hover:text-teal">
+                  {sol.data.title}
+                </span>
+                <span class="flex items-center gap-2 text-teal shrink-0 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">
+                  <span class="font-body text-[10px] tracking-widest2 uppercase whitespace-nowrap">Discover</span>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-none">
+                    <path d="M1 8H15M15 8L9 2M15 8L9 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </div>
 
-              <!-- Next arrow -->
-              <button
-                type="button"
-                class="slider-next absolute right-2 top-1/2 -translate-y-1/2 z-10
-                       w-7 h-7 flex items-center justify-center
-                       bg-dark/50 hover:bg-dark/75 text-cream text-lg leading-none
-                       transition-colors duration-200
-                       disabled:opacity-25 disabled:pointer-events-none"
-                aria-label="Next image"
-              >
-                ›
-              </button>
-            </div>
-
-            <!-- Title as button (links to the category page) -->
-            <a
-              href={`/solutions/${solutionSlug(sol.id)}`}
-              class="group relative flex items-center justify-between gap-3 border border-dark/25 px-5 py-3.5 overflow-hidden transition-colors duration-300 hover:border-teal"
-            >
-              <span class="font-body text-xs tracking-widest2 uppercase text-dark transition-colors duration-300 group-hover:text-teal">
-                {sol.data.title}
-              </span>
-              <span class="flex items-center gap-2 text-teal shrink-0 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">
-                <span class="font-body text-[10px] tracking-widest2 uppercase whitespace-nowrap">Discover</span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="flex-none">
-                  <path d="M1 8H15M15 8L9 2M15 8L9 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
             </a>
           </article>
         );
@@ -115,22 +115,30 @@ const solutions = allSolutions.sort((a, b) => a.data.title.localeCompare(b.data.
       next.disabled = idx === total - 1;
     }
 
-    prev.addEventListener('click', () => { if (current > 0) goto(current - 1); });
-    next.addEventListener('click', () => { if (current < total - 1) goto(current + 1); });
+    prev.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (current > 0) goto(current - 1);
+    });
+    next.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (current < total - 1) goto(current + 1);
+    });
 
     goto(0); // set initial disabled states
   });
 
-  // Zoom the photos only when the title button is hovered, not the photo itself
+  // Zoom the photos only when the card link is hovered
   document.querySelectorAll<HTMLElement>('.solution-card').forEach((card) => {
-    const titleLink = card.querySelector<HTMLAnchorElement>('a');
+    const link = card.querySelector<HTMLAnchorElement>('a');
     const images = card.querySelectorAll<HTMLImageElement>('.solution-img');
-    if (!titleLink) return;
+    if (!link) return;
 
-    titleLink.addEventListener('mouseenter', () => {
+    link.addEventListener('mouseenter', () => {
       images.forEach((img) => img.classList.add('scale-105'));
     });
-    titleLink.addEventListener('mouseleave', () => {
+    link.addEventListener('mouseleave', () => {
       images.forEach((img) => img.classList.remove('scale-105'));
     });
   });

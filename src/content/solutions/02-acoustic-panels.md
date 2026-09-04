@@ -12,14 +12,13 @@ images:
     alt: Custom acoustic panel installation
   - src: /images/acoustic-panel-new-02.png
     alt: Custom acoustic panel installation
-  - src: /images/acoustic-panel-new-03.png
-    alt: Custom acoustic panel installation
   - src: /images/acoustic-panel-new-04.png
     alt: Custom acoustic panel installation
   - src: /images/acoustic-panel-new-05.png
     alt: Custom acoustic panel installation
   - src: /images/acoustic-panel-new-06.png
     alt: Custom acoustic panel installation
+
 specs:
   - label: Acoustic Performance
     text: Engineered to absorb up to 45% of ambient noise, carrying a Class B

@@ -40,6 +40,9 @@ const tagDescriptions = Object.fromEntries(
   (category_descriptions ?? []).map((c) => [c.tag, c.description])
 );
 
+// First tag is selected by default — there is no "show all" state.
+const defaultTag = tags.length > 0 ? tags[0] : null;
+
 // Title-band background slider: the solution's own first 3 photos, in the
 // order set on the entry — simplest option that needs no extra CMS field.
 const heroSlides = images.slice(0, 3).map((img) => netlifyImage(img.src, { width: 1920 }));
@@ -96,14 +99,16 @@ const heroTrackSlides = heroSlides.length > 1 ? [...heroSlides, heroSlides[0]] :
                 type="button"
                 data-filter={tag}
                 data-description={tagDescriptions[tag] ?? ''}
-                class="gallery-filter font-body text-xs tracking-widest2 uppercase px-5 py-2.5 border border-dark/25 text-dark transition-colors duration-300"
+                class={`gallery-filter font-body text-xs tracking-widest2 uppercase px-5 py-2.5 border border-dark/25 text-dark transition-colors duration-300 ${tag === defaultTag ? 'is-active' : ''}`}
               >
                 {tag}
               </button>
             ))}
           </div>
 
-          <p class="gallery-filter-description font-body text-dark/70 text-sm md:text-base leading-relaxed max-w-2xl mb-10 opacity-0 transition-opacity duration-300"></p>
+          <p class={`gallery-filter-description font-body text-dark/70 text-sm md:text-base leading-relaxed max-w-2xl mb-10 transition-opacity duration-300 ${defaultTag ? '' : 'opacity-0'}`}>
+            {defaultTag ? (tagDescriptions[defaultTag] ?? '') : ''}
+          </p>
         </>
       )}
 
@@ -112,7 +117,7 @@ const heroTrackSlides = heroSlides.length > 1 ? [...heroSlides, heroSlides[0]] :
         {images.map((img, i) => (
           <button
             type="button"
-            class={`gallery-tile reveal aspect-4/5 overflow-hidden group delay-${(i % 3) * 100 + 100}`}
+            class={`gallery-tile reveal aspect-4/5 overflow-hidden group delay-${(i % 3) * 100 + 100} ${defaultTag && img.tag !== defaultTag ? 'hidden' : ''}`}
             data-index={i}
             data-tag={img.tag ?? ''}
             aria-label={`View ${img.alt}`}
@@ -412,7 +417,9 @@ const heroTrackSlides = heroSlides.length > 1 ? [...heroSlides, heroSlides[0]] :
   const lightboxNext = document.querySelector<HTMLButtonElement>('.lightbox-next');
 
   // The set of image indexes currently visible under the active filter, in order.
-  let visibleIndexes: number[] = tiles.length ? Array.from(tiles, (t) => Number(t.dataset.index)) : [];
+  let visibleIndexes: number[] = tiles.length
+    ? Array.from(tiles).filter((t) => !t.classList.contains('hidden')).map((t) => Number(t.dataset.index))
+    : [];
   let currentPos = 0; // position within visibleIndexes
 
   function openLightboxAt(index: number) {
@@ -475,22 +482,23 @@ const heroTrackSlides = heroSlides.length > 1 ? [...heroSlides, heroSlides[0]] :
 
   filterButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      // No "All" button: clicking the already-active tag deselects it and
-      // reveals every photo again; clicking a different tag filters to it.
-      const alreadyActive = btn.classList.contains('is-active');
+      // Always exactly one tag active — clicking the current one does nothing,
+      // there is no "show all" state to fall back to.
+      if (btn.classList.contains('is-active')) return;
+
       filterButtons.forEach((b) => b.classList.remove('is-active'));
-      const filter = alreadyActive ? 'all' : (btn.dataset.filter ?? 'all');
-      if (!alreadyActive) btn.classList.add('is-active');
+      btn.classList.add('is-active');
+      const filter = btn.dataset.filter ?? '';
 
       if (filterDescription) {
-        const text = alreadyActive ? '' : (btn.dataset.description ?? '');
+        const text = btn.dataset.description ?? '';
         filterDescription.textContent = text;
         filterDescription.classList.toggle('opacity-0', !text);
       }
 
       visibleIndexes = [];
       tiles.forEach((tile) => {
-        const show = filter === 'all' || tile.dataset.tag === filter;
+        const show = tile.dataset.tag === filter;
         tile.classList.toggle('hidden', !show);
         if (show) visibleIndexes.push(Number(tile.dataset.index));
       });

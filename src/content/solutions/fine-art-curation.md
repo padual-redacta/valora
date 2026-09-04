@@ -18,17 +18,11 @@ images:
     alt: Curated fine art installation
   - src: /images/fine-art-new-05.png
     alt: Curated fine art installation
-  - src: /images/fine-art-new-06.png
-    alt: Curated fine art installation
-  - src: /images/fine-art-new-07.png
-    alt: Curated fine art installation
-  - src: /images/fine-art-new-08.png
-    alt: Curated fine art installation
   - src: /images/fine-art-new-09.png
     alt: Curated fine art installation
-  - src: /images/fine-art-new-10.png
-    alt: Curated fine art installation
   - src: /images/fine-art-new-11.png
+    alt: Curated fine art installation
+  - src: /images/Black Bedrkoom.png
     alt: Curated fine art installation
 specs:
   - label: Comprehensive Curation

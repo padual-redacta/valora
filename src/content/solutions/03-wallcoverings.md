@@ -11,28 +11,34 @@ images:
   - src: /images/wallcovering-fabric-1.png
     alt: Custom fabric wallcovering installation
     tag: Fabric Wallcoverings
-  - src: /images/wallcovering-fabric-2.png
+  - src: /images/wallcovering-fabric-2.jpeg
     alt: Custom fabric wallcovering installation
     tag: Fabric Wallcoverings
   - src: /images/wallcovering-fabric-3.png
     alt: Custom fabric wallcovering installation
     tag: Fabric Wallcoverings
+  - src: /images/wallcovering-fabric-4new.png
+    alt: Custom fabric wallcovering installation
+    tag: Fabric Wallcoverings
+  - src: /images/wallcovering-fabric-9.jpeg
+    alt: Custom fabric wallcovering installation
+    tag: Fabric Wallcoverings
+  - src: /images/wallcovering-fabric-5.jpeg
+    alt: Custom fabric wallcovering installation
+    tag: Fabric Wallcoverings
   - src: /images/wallcovering-mural-1.jpg
     alt: Custom mural wallcovering installation
     tag: Custom Wall Murals
-  - src: /images/wallcovering-mural-2.png
+  - src: /images/wallcovering-mural-2.jpg
     alt: Custom mural wallcovering installation
     tag: Custom Wall Murals
   - src: /images/wallcovering-mural-3.png
     alt: Custom mural wallcovering installation
     tag: Custom Wall Murals
-  - src: /images/wallcovering-mural-4.jpg
-    alt: Custom mural wallcovering installation
-    tag: Custom Wall Murals
   - src: /images/wallcovering-vinyl-1.png
     alt: Custom Type II vinyl wallcovering installation
     tag: Type II Vinyl
-  - src: /images/wallcovering-vinyl-2.png
+  - src: /images/wallcovering-fabric-5.png
     alt: Custom Type II vinyl wallcovering installation
     tag: Type II Vinyl
   - src: /images/wallcovering-vinyl-3.png

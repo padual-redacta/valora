@@ -17,7 +17,13 @@ images:
   - src: /images/mirrors-framed-3.png
     alt: Custom framed mirror installation
     tag: Framed
-  - src: /images/mirrors-framed-4.png
+  - src: /images/mirrors-framed-4.jpeg
+    alt: Custom framed mirror installation
+    tag: Framed
+  - src: /images/mirrors-framed-5.jpeg
+    alt: Custom framed mirror installation
+    tag: Framed
+  - src: /images/mirrors-framed-6.jpeg
     alt: Custom framed mirror installation
     tag: Framed
   - src: /images/mirrors-led-new-1.png
@@ -32,6 +38,12 @@ images:
   - src: /images/mirrors-led-new-4.png
     alt: Custom LED mirror installation
     tag: LED
+  - src: /images/mirrors-led-new-5.png
+    alt: Custom LED mirror installation
+    tag: LED
+  - src: /images/mirrors-led-new-6.jpg
+    alt: Custom LED mirror installation
+    tag: LED
   - src: /images/mirrors-printed-1.png
     alt: Custom printed mirror installation
     tag: Printed
@@ -44,6 +56,13 @@ images:
   - src: /images/mirrors-printed-4.png
     alt: Custom printed mirror installation
     tag: Printed
+  - src: /images/mirrors-printed-5.png
+    alt: Custom printed mirror installation
+    tag: Printed
+  - src: /images/3d-art-new-05.png
+    alt: Custom printed mirror installation
+    tag: Printed
+  
 category_descriptions:
   - tag: Framed
     description: Custom profiles, finishes, and colors engineered to align perfectly

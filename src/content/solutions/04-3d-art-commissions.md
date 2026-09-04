@@ -16,7 +16,7 @@ images:
     alt: 3D art installation
   - src: /images/3d-art-new-04.png
     alt: 3D art installation
-  - src: /images/3d-art-new-05.png
+  - src: /images/3d-art-new-5.jpeg
     alt: 3D art installation
   - src: /images/3d-art-new-06.png
     alt: 3D art installation
